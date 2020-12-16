@@ -25,8 +25,7 @@ executable xmonad-stack
   hs-source-dirs:
       ./.
   build-depends:
-      X11
-    , base
+      base
     , directory
     , filepath
     , rio

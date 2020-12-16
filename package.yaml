@@ -8,7 +8,6 @@ extra-source-files:
   - README.md
 
 dependencies:
-  - X11
   - base
   - directory
   - filepath
