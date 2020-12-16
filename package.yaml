@@ -4,9 +4,6 @@ github: "matoruru/.xmonad"
 author: "matoruru"
 maintainer: "matoruru"
 
-extra-source-files:
-  - README.md
-
 dependencies:
   - base
   - directory

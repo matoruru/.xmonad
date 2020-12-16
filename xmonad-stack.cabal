@@ -11,8 +11,6 @@ bug-reports:    https://github.com/matoruru/.xmonad/issues
 author:         matoruru
 maintainer:     matoruru
 build-type:     Simple
-extra-source-files:
-    README.md
 
 source-repository head
   type: git
