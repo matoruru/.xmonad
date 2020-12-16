@@ -1,0 +1,23 @@
+name: xmonad-stack
+version: 0.1.0.0
+github: "matoruru/.xmonad"
+author: "matoruru"
+maintainer: "matoruru"
+
+extra-source-files:
+  - README.md
+
+dependencies:
+  - X11
+  - base
+  - directory
+  - filepath
+  - rio
+  - unix
+  - xmonad
+  - xmonad-contrib
+
+executables:
+  xmonad-stack:
+    main: xmonad.hs
+    source-dirs: .
