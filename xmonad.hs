@@ -30,9 +30,6 @@ import XMonad.Util.Cursor
 import XMonad.Util.EZConfig
 import qualified XMonad.StackSet as W
 
-(#) :: a -> (a -> b) -> b
-(#) = flip ($)
-
 main :: IO ()
 main = do
   let wsLogfile = "/tmp/.xmonad-workspace-log"
@@ -243,9 +240,7 @@ getWsLog = do
       where
          toState current (idx, mw)
             | current == idx = Current
-            | otherwise = mw # \case
-                Just _  -> NotEmpty
-                Nothing -> Empty
+            | otherwise      = bool Empty NotEmpty . isJust $ mw
 
          stateToSym = \case
            Current  -> "\63022"
