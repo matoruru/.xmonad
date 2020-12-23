@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.34.2.
+-- This file has been generated from package.yaml by hpack version 0.34.3.
 --
 -- see: https://github.com/sol/hpack
 
@@ -21,7 +21,7 @@ executable xmonad-stack
   other-modules:
       Paths_xmonad_stack
   hs-source-dirs:
-      ./.
+      ./
   build-depends:
       base
     , directory
