@@ -2,7 +2,7 @@
 My xmonad config
 
 
-# Installation
+## Installation
 
 ```bash
 $ git clone https://github.com/matoruru/.xmonad.git ~/.xmonad
