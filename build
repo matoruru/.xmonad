@@ -1,3 +1,11 @@
 #!/bin/bash
 
-cd ~/.xmonad && stack install
+OUT=`cd ~/.xmonad && stack install 2>&1`
+
+RES="$?"
+
+if [ "$RES" -eq 1 ]; then
+  echo "$OUT" 1>&2
+fi
+
+exit "$RES"
