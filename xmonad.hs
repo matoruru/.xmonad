@@ -34,9 +34,7 @@ main :: IO ()
 main = do
   let wsLogfile = "/tmp/.xmonad-workspace-log"
   homeDir <- getHomeDirectory
-  doesFileExist wsLogfile >>= \case
-    True  -> mempty
-    False -> createNamedPipe wsLogfile stdFileMode
+  unlessM (doesFileExist wsLogfile) $ createNamedPipe wsLogfile stdFileMode
   xmonad . ewmh . docks $ myConfig homeDir wsLogfile
 
 myConfig :: FilePath -> FilePath -> XConfig MyLayout
