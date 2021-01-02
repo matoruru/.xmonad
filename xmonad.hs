@@ -27,21 +27,13 @@ import XMonad.Layout.LayoutModifier
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Spacing
 import XMonad.Util.Cursor
-import qualified XMonad.Util.ExtensibleState as XS
 import XMonad.Util.EZConfig
 import qualified XMonad.StackSet as W
 
-data GlobalConfig = GlobalConfig
-  { wsLogFile :: FilePath
-  } deriving Typeable
-
-instance ExtensionClass GlobalConfig where
-  initialValue = GlobalConfig
-    { wsLogFile = mempty
-    }
-
 main :: IO ()
-main = xmonad . ewmh . docks $ myConfig
+main = do
+  unlessM (doesFileExist wsLogFile) $ createNamedPipe wsLogFile stdFileMode
+  xmonad . ewmh . docks $ myConfig
 
 myConfig :: XConfig MyLayout
 myConfig = def
@@ -251,28 +243,25 @@ getWsLog = do
            NotEmpty -> "\61842"
            Empty    -> "\63023"
 
+wsLogFile :: FilePath
+wsLogFile = "/tmp/.xmonad-workspace-log"
+
 writeWsLog :: X ()
-writeWsLog = do
-  filename <- XS.gets wsLogFile
-  io . appendFile filename . (++ "\n") =<< getWsLog
+writeWsLog = io . appendFile wsLogFile . (++ "\n") =<< getWsLog
 
 myLogHook :: X ()
 myLogHook = writeWsLog
 
 myStartupHook :: X ()
 myStartupHook = do
-  XS.put $ GlobalConfig
-    { wsLogFile = "/tmp/.xmonad-workspace-log"
-    }
-  homeDir <- io getHomeDirectory
   setDefaultCursor xC_left_ptr
   setWMName "LG3D"
-  wallpaperSetter $ mkWallpaperConf homeDir
+  setWallpaper
 
-createWsLogFile :: X ()
-createWsLogFile = do
-  file <- XS.gets wsLogFile
-  io $ unlessM (doesFileExist file) $ createNamedPipe file stdFileMode
+setWallpaper :: X ()
+setWallpaper = do
+  homeDir <- io getHomeDirectory
+  wallpaperSetter $ mkWallpaperConf homeDir
 
 mkWallpaperConf :: FilePath -> WallpaperConf
 mkWallpaperConf homeDir = WallpaperConf
