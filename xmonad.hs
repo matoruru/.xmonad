@@ -88,7 +88,7 @@ amixer = spawn . ("amixer set Master " ++)
 
 myKeysP :: [(String, X ())]
 myKeysP = [ ( "M-u"
-            , spawn myTerminal
+            , spawn . asks terminal =<< asks config
             )
           , ( "M-s"
             , openBrowser
