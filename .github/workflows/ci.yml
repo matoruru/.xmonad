@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    name: Build xmonad
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-haskell@v1.1.3
+        with:
+          ghc-version: 'latest'
+          enable-stack: true
+          stack-version: 'latest'
+      - name: Install libraries
+        run: |
+          # See: https://github.com/xmonad/xmonad/blob/master/.github/workflows/tests.yml
+          sudo apt install -y libasound2 libasound2-dev libxrandr-dev libtinfo-dev
+          sudo apt install -y libx11-dev libgmp-dev libxss-dev libxft-dev
+      - run: stack build --fast --no-terminal
