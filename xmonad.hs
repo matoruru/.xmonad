@@ -60,7 +60,8 @@ import XMonad
         modMask,
         startupHook,
         terminal,
-        workspaces
+        workspaces,
+        focusedBorderColor
       ),
     XState (windowset),
     button1,
@@ -137,15 +138,16 @@ main = do
 myConfig :: XConfig MyLayout
 myConfig =
   def
-    { terminal = myTerminal,
-      modMask = myModMask,
-      workspaces = myWorkspaces,
-      borderWidth = myBorderWidth,
-      layoutHook = myLayout,
-      manageHook = myManageHook,
-      logHook = myLogHook,
-      handleEventHook = myHandleEventHook,
-      startupHook = myStartupHook
+    { terminal = myTerminal
+    , modMask = myModMask
+    , workspaces = myWorkspaces
+    , focusedBorderColor = "#00BCD4"
+    , borderWidth = myBorderWidth
+    , layoutHook = myLayout
+    , manageHook = myManageHook
+    , logHook = myLogHook
+    , handleEventHook = myHandleEventHook
+    , startupHook = myStartupHook
     }
     `additionalKeysP` myKeysP
     `removeMouseBindings` myKeysToRemove
@@ -157,7 +159,7 @@ myModMask :: KeyMask
 myModMask = mod4Mask
 
 myBorderWidth :: Dimension
-myBorderWidth = 0
+myBorderWidth = 1
 
 border :: Border
 border = (\x -> Border x x x x) 4
